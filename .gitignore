@@ -1,0 +1,8 @@
+.idea
+*.iml
+target
+grpc-client/src/test/
+grpc-proto/src/test/
+grpc-server/src/test/
+grpc-client/.mvn/
+grpc-server/.mvn/

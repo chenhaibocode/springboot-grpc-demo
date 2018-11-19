@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+package com.chenhaibo.grpc.userfacade;
+
+message UserParam {
+    string name = 1;
+}
+
+message UserResult {
+    string id =1;
+    string name = 2;
+}
+
+service UserFacade {
+    rpc getUser (UserParam) returns (UserResult);
+}
