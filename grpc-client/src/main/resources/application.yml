@@ -14,7 +14,7 @@ grpc:
   client:
     grpc-server-user:
       host:
-      - 10.33.143.61
+      - 127.0.0.1
       port:
       - 9898
       enableKeepAlive: true
