@@ -28,7 +28,7 @@ public class UserClient {
     @PostConstruct
     private void init() {
         ManagedChannel managedChannel = ManagedChannelBuilder
-                .forAddress("0.0.0.0", 9090).usePlaintext().build();
+                .forAddress("10.33.143.61", 9898).usePlaintext().build();
 
         userFacadeBlockingStub =
                 UserFacadeGrpc.newBlockingStub(managedChannel);

@@ -1,20 +1,23 @@
 package com.chenhaibo.model;
 
-import javax.persistence.*;
-
 /**
  * @Author: com.com.chenhaibo
  * @Description:
  * @Date: Created in 15:41 2018/7/26
  */
-@Entity
-@Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     private String name;
+
+    public User() {
+    }
+
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public Long getId() {
         return id;

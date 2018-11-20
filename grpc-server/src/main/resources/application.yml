@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: grpc-server-user
+  datasource:
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://10.10.35.13:6606/uc?characterEncoding=UTF-8
+    username: qa
+logging:
+  level:
+    com:
+      dalaoyang:
+        dao:
+          UserMapper: debug
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.chenhaibo.model
+server:
+  port: 8088
+  tomcat:
+    uri-encoding: utf-8
+grpc:
+  server:
+    address: 10.33.143.61
+    port: 9898

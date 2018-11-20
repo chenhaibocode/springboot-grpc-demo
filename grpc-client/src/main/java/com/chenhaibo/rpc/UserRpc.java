@@ -4,36 +4,28 @@ import com.chenhaibo.grpc.userfacade.UserFacadeGrpc;
 import com.chenhaibo.grpc.userfacade.UserParam;
 import com.chenhaibo.grpc.userfacade.UserResult;
 import com.chenhaibo.vo.UserVO;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
+import io.grpc.Channel;
+import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
+import org.springframework.stereotype.Service;
 
 /**
  * @Auther: com.com.chenhaibo
  * @Date: 2018/11/18 15:15
  * @Description:
  */
-@Component
+@Service
 public class UserRpc {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(UserRpc.class);
 
-    private UserFacadeGrpc.UserFacadeBlockingStub userFacadeBlockingStub;
-
-    @PostConstruct
-    private void init() {
-        ManagedChannel managedChannel = ManagedChannelBuilder
-                .forAddress("0.0.0.0", 9090).usePlaintext().build();
-
-        userFacadeBlockingStub =
-                UserFacadeGrpc.newBlockingStub(managedChannel);
-    }
+    @GrpcClient("grpc-server-user")
+    private Channel serverChannel;
 
     public UserVO findUserByName(String name) {
+
+        UserFacadeGrpc.UserFacadeBlockingStub userFacadeBlockingStub = UserFacadeGrpc.newBlockingStub(serverChannel);
 
         UserParam userParam = UserParam.newBuilder().setName(name).build();
         LOGGER.info("client sending {}", userParam);

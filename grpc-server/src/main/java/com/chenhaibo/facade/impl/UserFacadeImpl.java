@@ -1,6 +1,6 @@
-package com.chenhaibo.server;
+package com.chenhaibo.facade.impl;
 
-import com.chenhaibo.dao.UserRepositoty;
+import com.chenhaibo.dao.UserMapper;
 import com.chenhaibo.exception.MyException;
 import com.chenhaibo.exception.MyExceptionEnums;
 import com.chenhaibo.grpc.userfacade.UserFacadeGrpc;
@@ -25,25 +25,26 @@ public class UserFacadeImpl extends UserFacadeGrpc.UserFacadeImplBase {
             LoggerFactory.getLogger(UserFacadeImpl.class);
 
     @Autowired
-    private UserRepositoty userRepositoty;
+    private UserMapper userDao;
 
     @Override
     public void getUser(UserParam request, StreamObserver<UserResult> responseObserver) {
+        UserResult userResult;
         if (null == request) {
             new MyException(MyExceptionEnums.REQUEST_EMPTY);
         }
-        LOGGER.info("server getUser request {}", request);
 
-        User user = userRepositoty.findByUserName(request.getName());
+        User user = userDao.findByUserName(request.getName());
         if (null == user) {
             LOGGER.error("user is null. request {}", request);
-            return;
+            userResult = UserResult.newBuilder()
+                            .setId("-1")
+                            .setName("用户不存在").build();
+        } else {
+            userResult = UserResult.newBuilder()
+                            .setId(String.valueOf(user.getId()))
+                            .setName(user.getName()).build();
         }
-        UserResult userResult =
-                UserResult.newBuilder()
-                        .setId(String.valueOf(user.getId()))
-                        .setName(user.getName()).build();
-        LOGGER.info("server getUser responded {}", userResult);
 
         responseObserver.onNext(userResult);
         responseObserver.onCompleted();

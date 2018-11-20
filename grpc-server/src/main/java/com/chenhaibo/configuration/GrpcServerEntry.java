@@ -1,5 +1,6 @@
 package com.chenhaibo.configuration;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,8 +12,9 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = "com.chenhaibo")
-public class Entry {
+@MapperScan("com.chenhaibo.dao")
+public class GrpcServerEntry {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Entry.class, args);
+        SpringApplication.run(GrpcServerEntry.class, args);
     }
 }

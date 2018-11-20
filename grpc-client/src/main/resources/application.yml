@@ -1,0 +1,22 @@
+spring:
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+  application:
+    name: grpc-client-user
+server:
+  port: 8888
+  tomcat:
+    uri-encoding: utf-8
+grpc:
+  client:
+    grpc-server-user:
+      host:
+      - 10.33.143.61
+      port:
+      - 9898
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

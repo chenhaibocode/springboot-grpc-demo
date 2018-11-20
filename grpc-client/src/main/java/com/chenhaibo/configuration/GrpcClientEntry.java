@@ -11,8 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan(basePackages = "com.chenhaibo")
-public class Entry {
+public class GrpcClientEntry {
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(Entry.class, args);
+        SpringApplication.run(GrpcClientEntry.class, args);
     }
 }
