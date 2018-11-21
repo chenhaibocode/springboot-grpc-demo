@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+package com.chenhaibo.grpc.jobfacade;
+
+message JobParam {
+    string id = 1;
+}
+
+message JobResult {
+    string id =1;
+    string jobCode = 2;
+}
+
+service JobFacade {
+    rpc getJobById (JobParam) returns (JobResult);
+}

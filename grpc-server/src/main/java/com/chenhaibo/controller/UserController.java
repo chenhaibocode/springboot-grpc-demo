@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description:
  */
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/user")
 @Api("UserController")
 public class UserController {
 
