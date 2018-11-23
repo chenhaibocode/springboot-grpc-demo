@@ -11,7 +11,10 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
 import java.util.Map;
 
 /**
@@ -46,12 +49,25 @@ public class RegistryListener implements ServletContextListener {
     }
 
     private String getLocalAddress(){
-        try {
-            InetAddress address = InetAddress.getLocalHost();
-            return address.getHostAddress();
-        } catch (Exception e) {
+        try{
+            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (allNetInterfaces.hasMoreElements()){
+                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
+                Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+                while (addresses.hasMoreElements()){
+                    InetAddress ip = (InetAddress) addresses.nextElement();
+                    if (ip != null
+                            && ip instanceof Inet4Address
+                            && !ip.isLoopbackAddress()
+                            && ip.getHostAddress().indexOf(":")==-1){
+                        System.out.println("本机的IP = " + ip.getHostAddress());
+                        return ip.getHostAddress();
+                    }
+                }
+            }
+        }catch(Exception e){
             e.printStackTrace();
         }
-        return "0.0.0.0";
+        return "127.0.0.1";
     }
 }
