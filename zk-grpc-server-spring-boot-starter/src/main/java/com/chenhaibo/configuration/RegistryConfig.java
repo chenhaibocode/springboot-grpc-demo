@@ -16,12 +16,13 @@ import org.springframework.context.annotation.Configuration;
 public class RegistryConfig {
     private String servers;
     private String nodepath;
+    private String username;
+    private String password;
 
     @Bean
     public ServiceRegistry serviceRegistry() {
-        return new ServiceRegistryImpl(servers, nodepath);
+        return new ServiceRegistryImpl(servers, nodepath, username, password);
     }
-
 
     public void setServers(String servers) {
         this.servers = servers;
@@ -29,5 +30,13 @@ public class RegistryConfig {
 
     public void setNodepath(String nodepath) {
         this.nodepath = nodepath;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

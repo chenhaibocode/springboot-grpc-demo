@@ -23,5 +23,7 @@ grpc:
   server:
     port: 9898
 registry:
-  servers: 127.0.0.1:2181
-  nodepath: /grpc_ke
+  servers: 10.33.107.16:2800
+  nodepath: /jichu/grpc
+  username: jichu
+  password: McBuai6Ken

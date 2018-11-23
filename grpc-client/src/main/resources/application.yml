@@ -11,5 +11,5 @@ server:
   tomcat:
     uri-encoding: utf-8
 registry:
-  servers: 127.0.0.1:2181
-  nodepath: /grpc_ke
+  servers: 10.33.107.16:2800
+  nodepath: /jichu/grpc

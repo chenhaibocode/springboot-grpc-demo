@@ -16,6 +16,7 @@ import java.util.concurrent.CountDownLatch;
 @Component
 public class ServiceRegistryImpl implements ServiceRegistry, Watcher {
 
+    private static final String digest = "digest";
     private String REGISTRY_PATH;
     private static final int SESSION_TIMEOUT = 20000;
 
@@ -28,9 +29,11 @@ public class ServiceRegistryImpl implements ServiceRegistry, Watcher {
     public ServiceRegistryImpl() {
     }
 
-    public ServiceRegistryImpl(String zkServers, String nodepath) {
+    public ServiceRegistryImpl(String zkServers, String nodepath, String username, String password) {
         try {
             zk = new ZooKeeper(zkServers, SESSION_TIMEOUT, this);
+            String idPassword = username + ":" + password;
+            zk.addAuthInfo(digest, idPassword.getBytes());
             REGISTRY_PATH = nodepath;
             latch.await();
             logger.debug("connected to zookeeper");
