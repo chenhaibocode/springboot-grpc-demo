@@ -10,11 +10,11 @@ import org.springframework.context.annotation.ComponentScan;
  * @Description:
  * @Date: Created in 16:04 2018/7/26
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.chenhaibo")
 @ComponentScan(basePackages = "com.chenhaibo")
 @MapperScan("com.chenhaibo.dao")
 public class GrpcServerEntry {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(GrpcServerEntry.class, args);
     }
 }

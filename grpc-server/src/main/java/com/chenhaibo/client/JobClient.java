@@ -28,7 +28,7 @@ public class JobClient {
     @PostConstruct
     private void init() {
         ManagedChannel managedChannel = ManagedChannelBuilder
-                .forAddress("127.0.0.1", 9898).usePlaintext().build();
+                .forAddress("0.0.0.0", 9898).usePlaintext().build();
 
         jobFacadeBlockingStub =
                 JobFacadeGrpc.newBlockingStub(managedChannel);

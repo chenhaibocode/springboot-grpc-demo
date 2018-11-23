@@ -1,13 +1,13 @@
 package com.chenhaibo.rpc;
 
+import com.chenhaibo.discovery.ServiceDiscovery;
 import com.chenhaibo.grpc.userfacade.UserFacadeGrpc;
 import com.chenhaibo.grpc.userfacade.UserParam;
 import com.chenhaibo.grpc.userfacade.UserResult;
 import com.chenhaibo.vo.UserVO;
-import io.grpc.Channel;
-import net.devh.springboot.autoconfigure.grpc.client.GrpcClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,20 +20,17 @@ public class UserRpc {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(UserRpc.class);
 
-    @GrpcClient("grpc-server-user")
-    private Channel serverChannel;
+    @Autowired
+    private ServiceDiscovery serviceDiscovery;
 
     public UserVO findUserByName(String name) {
 
-        UserFacadeGrpc.UserFacadeBlockingStub userFacadeBlockingStub = UserFacadeGrpc.newBlockingStub(serverChannel);
+        UserFacadeGrpc.UserFacadeBlockingStub userFacadeBlockingStub =
+                UserFacadeGrpc.newBlockingStub(serviceDiscovery.getManagedChannel());
 
         UserParam userParam = UserParam.newBuilder().setName(name).build();
-        LOGGER.info("client sending {}", userParam);
-
         UserResult userResult =
                 userFacadeBlockingStub.getUser(userParam);
-        LOGGER.info("client received {}", userResult);
-
         if (null == userResult) {
             LOGGER.error("userResult is null.");
             return null;
