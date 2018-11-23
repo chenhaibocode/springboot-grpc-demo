@@ -11,6 +11,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.net.InetAddress;
 import java.util.Map;
 
 /**
@@ -20,8 +21,6 @@ import java.util.Map;
  */
 @Component
 public class RegistryListener implements ServletContextListener {
-
-    private String serverAddress = "0.0.0.0";
 
     @Value("${grpc.server.port}")
     private int serverPort;
@@ -36,8 +35,7 @@ public class RegistryListener implements ServletContextListener {
         Map<String, Object> beans = applicationContext.getBeansWithAnnotation(GrpcService.class);
         for (Object bean : beans.values()) {
             if(null != bean) {
-                //注册服务
-                serviceRegistry.register(bean.getClass().getName(), String.format("%s:%d", serverAddress, serverPort));
+                serviceRegistry.register(bean.getClass().getName(), String.format("%s:%d", getLocalAddress(), serverPort));
             }
         }
     }
@@ -45,5 +43,15 @@ public class RegistryListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
 
+    }
+
+    private String getLocalAddress(){
+        try {
+            InetAddress address = InetAddress.getLocalHost();
+            return address.getHostAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "0.0.0.0";
     }
 }
