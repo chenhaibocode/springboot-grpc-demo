@@ -8,6 +8,7 @@ import com.chenhaibo.grpc.jobfacade.JobParam;
 import com.chenhaibo.grpc.jobfacade.JobResult;
 import com.chenhaibo.model.Job;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description:
  * @Date: Created in 15:49 2018/7/26
  */
+@Slf4j
 @GrpcService
 public class JobFacadeImpl extends JobFacadeGrpc.JobFacadeImplBase {
-
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger(JobFacadeImpl.class);
 
     @Autowired
     private JobMapper jobDao;
@@ -36,7 +35,7 @@ public class JobFacadeImpl extends JobFacadeGrpc.JobFacadeImplBase {
 
         Job job = jobDao.getJobById(Long.parseLong(request.getId()));
         if (null == job) {
-            LOGGER.error("user is null. request {}", request);
+            log.error("user is null. request {}", request);
             jobResult = JobResult.newBuilder()
                     .setId("-1")
                     .setJobCode("职务不存在").build();

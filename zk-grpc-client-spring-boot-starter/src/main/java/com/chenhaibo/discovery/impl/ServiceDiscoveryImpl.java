@@ -3,11 +3,10 @@ package com.chenhaibo.discovery.impl;
 import com.chenhaibo.discovery.ServiceDiscovery;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,10 +20,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date: 2018/11/22 17:49
  * @Description:
  */
+@Slf4j
 @Component
 public class ServiceDiscoveryImpl implements ServiceDiscovery {
 
-    private Logger logger = LoggerFactory.getLogger(ServiceDiscoveryImpl.class);
     private static final int SESSION_TIMEOUT = 20000;
     private String zkServers;
     private String nodepath;
@@ -55,7 +54,6 @@ public class ServiceDiscoveryImpl implements ServiceDiscovery {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
             });
         }catch (Exception e) {
@@ -71,11 +69,11 @@ public class ServiceDiscoveryImpl implements ServiceDiscovery {
         for (String child : children) {
             String path = nodepath + "/" + child;
             byte[] data = zk.getData(path, false, null);
-            logger.info("zk path : " + path);
+            log.info("zk path : " + path);
             if(null == data || data.length <1) {
                 continue;
             }
-            logger.info("zk value : " + new String(data));
+            log.info("zk value : " + new String(data));
             instanceMap.put(path, new String(data));
         }
     }
@@ -90,11 +88,11 @@ public class ServiceDiscoveryImpl implements ServiceDiscovery {
         }
         int size = instanceMap.size();
         if (size == 0) {
-            logger.error("does not have available server.");
+            log.error("does not have available server.");
             return Optional.ofNullable(null);
         }
         int rand = new Random().nextInt(size);
-        logger.info("size=" + size + ",rand=" + rand);;
+        log.info("size=" + size + ",rand=" + rand);;
         String server = (String)instanceMap.values().toArray()[rand];
         return Optional.ofNullable(server);
     }
@@ -104,12 +102,12 @@ public class ServiceDiscoveryImpl implements ServiceDiscovery {
         Optional<String> server = getServer();
         if (server.isPresent()) {
             String[] array = server.get().split(":");
-            logger.info("server host=" + array[0] + ",port=" + array[1]);
+            log.info("server host=" + array[0] + ",port=" + array[1]);
             ManagedChannel managedChannel = ManagedChannelBuilder
                     .forAddress(array[0], Integer.parseInt(array[1])).usePlaintext().build();
             return managedChannel;
         }else {
-            logger.error("not find avaliable server====");
+            log.error("not find avaliable server====");
         }
         return null;
     }

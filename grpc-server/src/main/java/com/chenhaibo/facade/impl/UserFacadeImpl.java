@@ -8,6 +8,7 @@ import com.chenhaibo.grpc.userfacade.UserParam;
 import com.chenhaibo.grpc.userfacade.UserResult;
 import com.chenhaibo.model.User;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description:
  * @Date: Created in 15:49 2018/7/26
  */
+@Slf4j
 @GrpcService
 public class UserFacadeImpl extends UserFacadeGrpc.UserFacadeImplBase {
-
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger(UserFacadeImpl.class);
 
     @Autowired
     private UserMapper userDao;
@@ -36,7 +35,7 @@ public class UserFacadeImpl extends UserFacadeGrpc.UserFacadeImplBase {
 
         User user = userDao.findByUserName(request.getName());
         if (null == user) {
-            LOGGER.error("user is null. request {}", request);
+            log.error("user is null. request {}", request);
             userResult = UserResult.newBuilder()
                             .setId("-1")
                             .setName("用户不存在").build();

@@ -6,6 +6,7 @@ import com.chenhaibo.grpc.jobfacade.JobResult;
 import com.chenhaibo.model.Job;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,11 +18,9 @@ import javax.annotation.PostConstruct;
  * @Date: 2018/11/19 16:44
  * @Description:
  */
+@Slf4j
 @Component
 public class JobClient {
-
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger(JobClient.class);
 
     private JobFacadeGrpc.JobFacadeBlockingStub jobFacadeBlockingStub;
 
@@ -40,11 +39,11 @@ public class JobClient {
      */
     public Job getJobById(Long id) {
         JobParam jobParam = JobParam.newBuilder().setId(String.valueOf(id)).build();
-        LOGGER.info("client sending {}", jobParam);
+        log.info("client sending {}", jobParam);
 
         JobResult jobResult =
                 jobFacadeBlockingStub.getJobById(jobParam);
-        LOGGER.info("client received {}", jobResult);
+        log.info("client received {}", jobResult);
 
         if (null == jobResult) {
             return null;

@@ -6,6 +6,7 @@ import com.chenhaibo.grpc.userfacade.UserResult;
 import com.chenhaibo.model.User;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,11 +18,9 @@ import javax.annotation.PostConstruct;
  * @Date: 2018/11/19 16:44
  * @Description:
  */
+@Slf4j
 @Component
 public class UserClient {
-
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger(UserClient.class);
 
     private UserFacadeGrpc.UserFacadeBlockingStub userFacadeBlockingStub;
 
@@ -41,11 +40,11 @@ public class UserClient {
      */
     public User getUser(String name) {
         UserParam userParam = UserParam.newBuilder().setName(name).build();
-        LOGGER.info("client sending {}", userParam);
+        log.info("client sending {}", userParam);
 
         UserResult userResult =
                 userFacadeBlockingStub.getUser(userParam);
-        LOGGER.info("client received {}", userResult);
+        log.info("client received {}", userResult);
 
         if (null == userResult) {
             return null;

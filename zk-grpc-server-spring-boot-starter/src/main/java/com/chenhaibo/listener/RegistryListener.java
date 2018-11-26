@@ -1,6 +1,7 @@
 package com.chenhaibo.listener;
 
 import com.chenhaibo.registry.ServiceRegistry;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @Date: 2018/11/20 23:12
  * @Description:
  */
+@Slf4j
 @Component
 public class RegistryListener implements ServletContextListener {
 
@@ -60,7 +62,7 @@ public class RegistryListener implements ServletContextListener {
                             && ip instanceof Inet4Address
                             && !ip.isLoopbackAddress()
                             && ip.getHostAddress().indexOf(":")==-1){
-                        System.out.println("本机的IP = " + ip.getHostAddress());
+                        log.info("本机的IP = " + ip.getHostAddress());
                         return ip.getHostAddress();
                     }
                 }
