@@ -12,8 +12,6 @@
         <module>grpc-proto</module>
         <module>grpc-server</module>
         <module>grpc-client</module>
-        <module>zk-grpc-server-spring-boot-starter</module>
-        <module>zk-grpc-client-spring-boot-starter</module>
     </modules>
 
     <profiles>
