@@ -70,6 +70,6 @@ public class RegistryListener implements ServletContextListener {
         }catch(Exception e){
             e.printStackTrace();
         }
-        return "127.0.0.1";
+        return "0.0.0.0";
     }
 }
