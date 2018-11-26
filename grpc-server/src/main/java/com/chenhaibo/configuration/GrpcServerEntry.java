@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @Date: Created in 16:04 2018/7/26
  */
 @SpringBootApplication(scanBasePackages = "com.chenhaibo")
-@ComponentScan(basePackages = {"com.chenhaibo", "com.ke.springboot.grpc"})
+@ComponentScan(basePackages = {"com.chenhaibo", "com.zk.springboot.grpc"})
 @MapperScan("com.chenhaibo.dao")
 public class GrpcServerEntry {
     public static void main(String[] args) {

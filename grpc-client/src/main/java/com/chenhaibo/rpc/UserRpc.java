@@ -4,7 +4,7 @@ import com.chenhaibo.grpc.userfacade.UserFacadeGrpc;
 import com.chenhaibo.grpc.userfacade.UserParam;
 import com.chenhaibo.grpc.userfacade.UserResult;
 import com.chenhaibo.vo.UserVO;
-import com.ke.springboot.grpc.discovery.ServiceDiscovery;
+import com.zk.springboot.grpc.discovery.ServiceDiscovery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
