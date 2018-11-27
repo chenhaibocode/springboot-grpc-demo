@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @Auther: com.com.chenhaibo
+ * @Auther: chenhaibo
  * @Date: 2018/11/18 15:15
  * @Description:
  */

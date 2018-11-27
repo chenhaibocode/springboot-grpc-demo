@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Author: com.com.chenhaibo
+ * @Author: chenhaibo
  * @Description:
  * @Date: Created in 15:15 2018/8/15
  */

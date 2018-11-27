@@ -15,6 +15,8 @@ logging:
 mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: com.chenhaibo.model
+  configuration:
+    map-underscore-to-camel-case: true
 server:
   port: 8088
   tomcat:

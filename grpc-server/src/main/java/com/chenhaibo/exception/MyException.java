@@ -1,7 +1,7 @@
 package com.chenhaibo.exception;
 
 /**
- * @Author: com.com.chenhaibo
+ * @Author: chenhaibo
  * @Description:
  * @Date: Created in 14:44 2018/8/15
  */

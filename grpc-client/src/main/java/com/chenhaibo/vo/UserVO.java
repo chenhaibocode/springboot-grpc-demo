@@ -1,7 +1,7 @@
 package com.chenhaibo.vo;
 
 /**
- * @Auther: com.com.chenhaibo
+ * @Auther: chenhaibo
  * @Date: 2018/11/18 15:21
  * @Description:
  */

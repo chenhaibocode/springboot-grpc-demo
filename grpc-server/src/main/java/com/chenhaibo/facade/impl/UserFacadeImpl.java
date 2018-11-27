@@ -1,21 +1,19 @@
 package com.chenhaibo.facade.impl;
 
-import com.chenhaibo.dao.UserMapper;
 import com.chenhaibo.exception.MyException;
 import com.chenhaibo.exception.MyExceptionEnums;
 import com.chenhaibo.grpc.userfacade.UserFacadeGrpc;
 import com.chenhaibo.grpc.userfacade.UserParam;
 import com.chenhaibo.grpc.userfacade.UserResult;
 import com.chenhaibo.model.User;
+import com.chenhaibo.service.UserService;
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.springboot.autoconfigure.grpc.server.GrpcService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * @Author: com.com.chenhaibo
+ * @Author: chenhaibo
  * @Description:
  * @Date: Created in 15:49 2018/7/26
  */
@@ -24,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserFacadeImpl extends UserFacadeGrpc.UserFacadeImplBase {
 
     @Autowired
-    private UserMapper userDao;
+    private UserService userService;
 
     @Override
     public void getUser(UserParam request, StreamObserver<UserResult> responseObserver) {
@@ -33,7 +31,7 @@ public class UserFacadeImpl extends UserFacadeGrpc.UserFacadeImplBase {
             new MyException(MyExceptionEnums.REQUEST_EMPTY);
         }
 
-        User user = userDao.findByUserName(request.getName());
+        User user = userService.findByUserName(request.getName());
         if (null == user) {
             log.error("user is null. request {}", request);
             userResult = UserResult.newBuilder()
