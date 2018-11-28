@@ -13,3 +13,5 @@ server:
 registry:
   servers: 10.33.107.16:2800
   nodepath: /jichu/grpc
+  username: jichu
+  password: McBuai6Ken
