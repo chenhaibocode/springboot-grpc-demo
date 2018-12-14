@@ -12,6 +12,13 @@ message UserResult {
     string name = 2;
 }
 
+import "google/api/annotations.proto";
+
 service UserFacade {
-    rpc getUser (UserParam) returns (UserResult);
+    rpc getUser (UserParam) returns (UserResult) {
+        option (google.api.http) = {
+          post: "/user/getUser"
+          body: "*"
+        };
+    }
 }
