@@ -4,7 +4,7 @@ spring:
   datasource:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.10.35.13:6606/uc?characterEncoding=UTF-8
+    url: jdbc:mysql://10.33.108.63:6606/uc?characterEncoding=UTF-8
     username: qa
 logging:
   level:
@@ -18,14 +18,14 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
 server:
-  port: 8088
+  port: 1111
   tomcat:
     uri-encoding: utf-8
 grpc:
   server:
     port: 9898
+gateway:
+  server:
+    port: 8080
 registry:
-  servers: 10.33.107.16:2800
-  nodepath: /jichu/grpc
-  username: jichu
-  password: McBuai6Ken
+  zkServers: 10.33.107.16:2800

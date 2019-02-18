@@ -29,7 +29,17 @@ public class UserController {
     public String show(@RequestParam(value = "name") String name) {
         UserVO userVO = userRpc.findUserByName(name);
         if (null != userVO) {
-            return userVO.getId() + "/" + userVO.getName();
+            return userVO.getId() + "";
+        }
+        return "null";
+    }
+
+    @RequestMapping(value = "showHttp")
+    @ResponseBody
+    public String showHttp(@RequestParam(value = "name") String name) {
+        UserVO userVO = userRpc.findUserByNameByHttp(name);
+        if (null != userVO) {
+            return userVO.getId() + "";
         }
         return "null";
     }

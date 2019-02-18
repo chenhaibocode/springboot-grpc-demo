@@ -7,11 +7,8 @@ spring:
   application:
     name: grpc-client
 server:
-  port: 8888
+  port: 1110
   tomcat:
     uri-encoding: utf-8
 registry:
-  servers: 10.33.107.16:2800
-  nodepath: /jichu/grpc
-  username: jichu
-  password: McBuai6Ken
+  linkerdAddress: 10.26.21.6:4143

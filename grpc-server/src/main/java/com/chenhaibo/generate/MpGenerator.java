@@ -27,7 +27,7 @@ public class MpGenerator {
     private static String driver = "com.mysql.jdbc.Driver";
     private static String username = "qa";
     private static String password = "123456";
-    private static String url = "jdbc:mysql://10.10.35.13:6606/uc?characterEncoding=UTF-8";
+    private static String url = "jdbc:mysql://10.33.108.63:6606/uc?characterEncoding=UTF-8";
     private static String parent = "com.chenhaibo";
 
     public static void main(String[] args) {

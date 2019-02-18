@@ -5,43 +5,15 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.chenhaibo.model.User">
         <id column="id" property="id" />
-        <result column="client_id" property="clientId" />
-        <result column="app_id" property="appId" />
-        <result column="password" property="password" />
-        <result column="salt" property="salt" />
-        <result column="display_name" property="displayName" />
-        <result column="favicon" property="favicon" />
-        <result column="mobile" property="mobile" />
-        <result column="mwmobile" property="mwmobile" />
-        <result column="email" property="email" />
-        <result column="qq_id" property="qqId" />
-        <result column="wx_id" property="wxId" />
-        <result column="zfb_id" property="zfbId" />
-        <result column="wb_id" property="wbId" />
-        <result column="real_name" property="realName" />
-        <result column="birthday" property="birthday" />
-        <result column="sex" property="sex" />
-        <result column="id_card" property="idCard" />
-        <result column="certification" property="certification" />
-        <result column="last_login_ip" property="lastLoginIp" />
-        <result column="last_login_time" property="lastLoginTime" />
-        <result column="ctime" property="ctime" />
-        <result column="mtime" property="mtime" />
-        <result column="device_id" property="deviceId" />
-        <result column="status" property="status" />
-        <result column="ke_qq_id" property="keQqId" />
-        <result column="ke_wx_id" property="keWxId" />
-        <result column="ke_zfb_id" property="keZfbId" />
-        <result column="ke_wb_id" property="keWbId" />
         <result column="name" property="name" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, client_id AS clientId, app_id AS appId, password, salt, display_name AS displayName, favicon, mobile, mwmobile, email, qq_id AS qqId, wx_id AS wxId, zfb_id AS zfbId, wb_id AS wbId, real_name AS realName, birthday, sex, id_card AS idCard, certification, last_login_ip AS lastLoginIp, last_login_time AS lastLoginTime, ctime, mtime, device_id AS deviceId, status, ke_qq_id AS keQqId, ke_wx_id AS keWxId, ke_zfb_id AS keZfbId, ke_wb_id AS keWbId, name
+        id, name
     </sql>
 
     <select id="findByUserName" parameterType="String" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from User where name = #{value}
+        select <include refid="Base_Column_List" /> from ehr_user where name = #{value}
     </select>
 </mapper>
