@@ -1,12 +1,12 @@
 package com.chenhaibo.rpc;
 
 import com.alibaba.fastjson.JSON;
-import com.chenhaibo.grpc.userfacade.UserFacadeGrpc;
-import com.chenhaibo.grpc.userfacade.UserParam;
-import com.chenhaibo.grpc.userfacade.UserResult;
 import com.chenhaibo.util.HttpUtil;
 import com.chenhaibo.vo.UserVO;
-import com.zk.springboot.grpc.discovery.ServiceDiscovery;
+import com.ke.ehr.discovery.ServiceDiscovery;
+import com.ke.ehr.permission.grpc.DataRuleByIdRequest;
+import com.ke.ehr.permission.grpc.DataRuleByIdResponse;
+import com.ke.ehr.permission.grpc.DataRuleServiceGrpc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,20 +26,20 @@ public class UserRpc {
     @Autowired
     private ServiceDiscovery serviceDiscovery;
 
-    public UserVO findUserByName(String name) {
-        UserFacadeGrpc.UserFacadeBlockingStub userFacadeBlockingStub =
-                UserFacadeGrpc.newBlockingStub(serviceDiscovery.getManagedChannel());
+    public UserVO findUserByName(Long id) {
+        DataRuleServiceGrpc.DataRuleServiceBlockingStub dataRuleServiceBlockingStub =
+                DataRuleServiceGrpc.newBlockingStub(serviceDiscovery.getManagedChannel());
 
-        UserParam userParam = UserParam.newBuilder().setName(name).build();
-        UserResult userResult =
-                userFacadeBlockingStub.getUser(userParam);
-        if (null == userResult) {
-            log.error("userResult is null.");
+        DataRuleByIdRequest request = DataRuleByIdRequest.newBuilder().setId(id).build();
+        DataRuleByIdResponse response =
+                dataRuleServiceBlockingStub.dataRuleById(request);
+        if (null == response) {
+            log.error("response is null.");
             return null;
         }
         UserVO userVO = new UserVO();
-        userVO.setId(userResult.getId());
-        userVO.setName(userResult.getName());
+        userVO.setId(response.getId() + "");
+        userVO.setName(response.getUserName());
         return userVO;
     }
 

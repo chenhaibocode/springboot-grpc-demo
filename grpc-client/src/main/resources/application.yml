@@ -11,4 +11,4 @@ server:
   tomcat:
     uri-encoding: utf-8
 registry:
-  linkerdAddress: 10.26.21.6:4143
+  linkerdAddress: 127.0.0.1:4143

@@ -26,8 +26,8 @@ public class UserController {
 
     @RequestMapping(value = "show")
     @ResponseBody
-    public String show(@RequestParam(value = "name") String name) {
-        UserVO userVO = userRpc.findUserByName(name);
+    public String show(@RequestParam(value = "id") Long id) {
+        UserVO userVO = userRpc.findUserByName(id);
         if (null != userVO) {
             return userVO.getId() + "";
         }
